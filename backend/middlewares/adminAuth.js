@@ -1,13 +1,13 @@
 const jwt = require("jsonwebtoken");
-const SECRET = process.env.JWT_SECRET;
+const ADMIN_SECRET = process.env.JWT_ADMIN_SECRET;
 
 function adminAuth(req, res, next){
     try{
         const token = req.headers.authorization?.split(" ")[1];
 
-        const verifiedToken = jwt.verify(token, SECRET);
+        const verifiedToken = jwt.verify(token, ADMIN_SECRET);
 
-        if(verifiedToken.role == "admin"){
+        if(verifiedToken){
             req.adminId = verifiedToken.id;
             next()
         }else{

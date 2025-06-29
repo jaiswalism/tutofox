@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const SECRET = process.env.JWT_SECRET;
+const USER_SECRET = process.env.JWT_USER_SECRET;
 const { course, user, purchase } = require("../database/index");
 const express = require("express");
 const Router = express.Router();
@@ -95,9 +95,8 @@ Router.post("/signin", async (req, res) => {
         const hashedPass = await bcrypt.compare(password, userFound.password);
         if (userFound && hashedPass) {
             const token = jwt.sign({
-                id: userFound._id,
-                role: "user"
-            }, SECRET, {
+                id: userFound._id
+            }, USER_SECRET, {
                 expiresIn: "1h"
             })
 

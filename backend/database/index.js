@@ -8,14 +8,14 @@ const userSchema = new Schema({
     name: String,
     email: {type: String, unique: true},
     password: String,
-    courses: {type: [ObjectId], ref: "courses"}
+    courses: [{type: ObjectId, ref: "courses"}]
 })
 
 const adminSchema = new Schema({
     name: String,
     email: {type: String, unique: true},
     password: String,
-    courses: {type: [ObjectId], ref: "courses"}
+    courses: [{type: ObjectId, ref: "courses"}]
 })
 
 const courseSchema = new Schema({
@@ -28,12 +28,13 @@ const courseSchema = new Schema({
         body: String,
         duration: String,
         videoUrl: String
-    }]
+    }],
+    creatorId: ObjectId
 })
 
 const purchaseSchema = new Schema({
-    purchaser: {type: [ObjectId], ref: "courses"},
-    courseId: {type: [ObjectId], ref: "courses"},
+    purchaser: {type: ObjectId, ref: "courses"},
+    courseId: {type: ObjectId, ref: "courses"},
     date: Date
 })
 

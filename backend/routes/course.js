@@ -22,12 +22,16 @@ Router.post("/purchase", userAuth, async(req, res) => {
         }
         
         const userId = req.userId;
-        const courseId = validatedBody.data.id
+        const {courseId} = validatedBody.data
 
         const courseInfo = await course.findById(courseId);
         const userInfo = await user.findById(userId)
+        console.log({
+            userId,
+            courseId
+        })
 
-        if(courseInfo && userId){
+        if(courseInfo && userInfo){
             const purchasedCourse = await purchase.create({
                 purchaser: userId,
                 courseId: courseId,
@@ -42,7 +46,11 @@ Router.post("/purchase", userAuth, async(req, res) => {
                 {courses: courses}
             )
 
+
+
             res.status(201).json({message: "Course purchased successfully"})
+        }else{
+            res.status(403).json({message: "Purchase Failed"})
         }
 
     }catch(err){
