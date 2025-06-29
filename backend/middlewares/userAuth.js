@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
-const SECRET = process.env.JWT_SECRET;
+const USER_SECRET = process.env.JWT_USER_SECRET;
 
 function userAuth(req, res, next){
     try{
         const token = req.headers.authorization?.split(" ")[1];
-        const verifiedToken = jwt.verify(token, SECRET);
+        const verifiedToken = jwt.verify(token, USER_SECRET);
 
-        if(verifiedToken.role == "user"){
+        if(verifiedToken){
             req.userId = verifiedToken.id;
             next()
         }else{

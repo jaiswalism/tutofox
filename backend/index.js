@@ -13,6 +13,6 @@ app.use(express.json());
 
 app.use('/admin', admin);
 app.use('/user', user)
-app.use('/course', user)
+app.use('/course', course)
 
 app.listen(PORT, () => {console.log(`Server is running on port: ${PORT}`)})
